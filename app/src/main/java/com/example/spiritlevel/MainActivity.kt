@@ -7,8 +7,8 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -16,13 +16,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var fab1: FloatingActionButton
     private lateinit var fab2: FloatingActionButton
 
+    private lateinit var textView1: TextView
+    private lateinit var textView2: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         fab1 = findViewById(R.id.spirit)
         fab2 = findViewById(R.id.spirit2)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        textView1 = findViewById(R.id.textView1)
+        textView2 = findViewById(R.id.textView2)
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also {
@@ -56,6 +61,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             val color = if (sides.toInt() == 0 && upDown.toInt() == 0) Color.GREEN else Color.RED
 
             fab2.backgroundTintList = ColorStateList.valueOf(color)
+
+            when {
+                sides.toInt() < 0 -> textView1.text = "Horizontally : Tilted RIGHT"
+                sides.toInt() > 0 -> textView1.text = "Horizontally : Tilted LEFT"
+                else -> textView1.text="Horizontally : BALANCED"
+            }
+
+            when {
+                upDown.toInt() < 0 -> textView2.text = "Vertically : Tilted UP"
+                upDown.toInt() > 0 -> textView2.text = "Vertically : Tilted DOWN"
+                else -> textView2.text="Vertically : BALANCED"
+            }
         }
     }
 
