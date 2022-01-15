@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SpiritLevel</string>
+    <string name="desc_spirit_container">Spirit Container</string>
+    <string name="desc_spirit">Spirit Indicator</string>
+
+    <string name="text_horizontal_msg">Horizontally : %s</string>
+    <string name="text_vertical_msg">Vertically : %s</string>
 </resources>

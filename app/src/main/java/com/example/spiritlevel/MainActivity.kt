@@ -42,36 +42,37 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(p0: SensorEvent?) {
         if (p0?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
-            val sides = p0.values[0]
+            val leftRight = p0.values[0]
             val upDown = p0.values[1]
 
             fab1.apply {
                 rotationX = upDown * 2f
-                rotationY = sides * 2f
-                rotation = -sides
-                translationX = sides * -3
+                rotationY = leftRight * 2f
+                rotation = -leftRight
+                translationX = leftRight * -3
                 translationY = upDown * 3
             }
 
             fab2.apply {
-                translationX = sides * -30
+                translationX = leftRight * -30
                 translationY = upDown * 30
             }
 
-            val color = if (sides.toInt() == 0 && upDown.toInt() == 0) Color.GREEN else Color.RED
+            val color =
+                if (leftRight.toInt() == 0 && upDown.toInt() == 0) Color.GREEN else Color.RED
 
             fab2.backgroundTintList = ColorStateList.valueOf(color)
 
             when {
-                sides.toInt() < 0 -> textView1.text = "Horizontally : Tilted RIGHT"
-                sides.toInt() > 0 -> textView1.text = "Horizontally : Tilted LEFT"
-                else -> textView1.text="Horizontally : BALANCED"
+                leftRight.toInt() < 0 -> textView1.text = getString(R.string.text_horizontal_msg,"Tilted RIGHT")
+                leftRight.toInt() > 0 -> textView1.text = getString(R.string.text_horizontal_msg,"Tilted LEFT")
+                else -> textView1.text = getString(R.string.text_horizontal_msg,"BALANCED")
             }
 
             when {
-                upDown.toInt() < 0 -> textView2.text = "Vertically : Tilted UP"
-                upDown.toInt() > 0 -> textView2.text = "Vertically : Tilted DOWN"
-                else -> textView2.text="Vertically : BALANCED"
+                upDown.toInt() < 0 -> textView2.text = getString(R.string.text_vertical_msg,"Tilted UP")
+                upDown.toInt() > 0 -> textView2.text = getString(R.string.text_vertical_msg,"Tilted DOWN")
+                else -> textView2.text = getString(R.string.text_vertical_msg,"BALANCED")
             }
         }
     }
