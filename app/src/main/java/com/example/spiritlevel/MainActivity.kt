@@ -47,15 +47,15 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
             fab1.apply {
                 rotationX = upDown * 2f
-                rotationY = leftRight * 2f
-                rotation = -leftRight
-                translationX = leftRight * -3
-                translationY = upDown * 3
+                rotationY = leftRight * -2f
+                rotation = leftRight
+                translationX = leftRight * 3
+                translationY = upDown * -3
             }
 
             fab2.apply {
-                translationX = leftRight * -30
-                translationY = upDown * 30
+                translationX = leftRight * 30
+                translationY = upDown * -30
             }
 
             val color =
